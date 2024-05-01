@@ -1,3 +1,8 @@
+/******************************************************************************************
+*	FloofEngine DirectX Framework Version x.x.x                                           *
+*                                                                                         *
+******************************************************************************************/
+
 #ifndef H_ENGINE_H
 #define H_ENGINE_H
 
@@ -14,7 +19,7 @@ protected:
 	string mGameTitle;                        // game and window title are stored here
 	int mWindowWidth;                         // window width
 	int mWindowHeight;                        // window height
-	bool mGameRunning = true;
+	bool mGameRunning = true;                 // variable to tell if the game is running
 
 public:
 	bool start();                             // start the game engine when a game is read
@@ -27,13 +32,14 @@ private:
 	virtual bool _close();                    // called when the game is closed to delete stuff you dynamic loaded.
 
 public:
-	Window* window;
-	Graphic* graphic;
+	Window* window;                           // The game window
+	Graphic* graphic;                         // the graphics (Direct11 at moment)
 
 	FloofEngine();
 	~FloofEngine();
 
 	void ClearScreen(float r, float g, float b, float a);
+	bool KeyPressed(int key) { return window->KeyDown(key); }
 };
 
 #endif // !H_ENGINE_H

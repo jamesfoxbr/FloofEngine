@@ -64,6 +64,7 @@ FloofEngine::FloofEngine()
 {
 	// Create a Window object
 	window = new Window(800, 600, L"Main Window");
+
 	// Set window title and size
 	window->setTitle(L"New Title");
 	window->setSize(1024, 768);

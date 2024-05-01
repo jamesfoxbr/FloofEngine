@@ -31,7 +31,7 @@ public:
 	bool _draw() override
 	{
 		// called one time per frame to to draw the screen
-		if (window->KeyDown(VK_UP))
+		if (KeyPressed(VK_UP))
 		{
 			std::cout << "UP\n";
 		}
@@ -47,6 +47,10 @@ public:
 		return true;
 	}
 };
+
+/******************************************************************************************
+*	MAIN FUNCTION                                                                         *
+******************************************************************************************/
 
 int main()
 {

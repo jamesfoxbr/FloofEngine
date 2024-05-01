@@ -1,3 +1,8 @@
+/******************************************************************************************
+*	FloofEngine DirectX Framework Version x.x.x                                           *
+*                                                                                         *
+******************************************************************************************/
+
 #ifndef WINDOW_H
 #define WINDOW_H
 
@@ -8,7 +13,6 @@
 class Window {
 public:
     
-
     Window(int width, int height, const std::wstring& title);
     ~Window();
 
@@ -27,7 +31,6 @@ private:
     int m_width;
     int m_height;
     std::wstring m_title;
-    void ClearScreen(float r, float g, float b, float a);
 };
 
 #endif // WINDOW_H

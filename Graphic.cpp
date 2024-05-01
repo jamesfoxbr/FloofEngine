@@ -47,6 +47,7 @@ Graphic::Graphic(HWND m_hWnd, int m_width, int m_height)
 
 Graphic::~Graphic()
 {
+    // Releasing directx stuff
     if (m_renderTargetView) m_renderTargetView->Release();
     if (m_swapChain) m_swapChain->Release();
     if (m_deviceContext) m_deviceContext->Release();

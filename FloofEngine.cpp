@@ -68,11 +68,27 @@ FloofEngine::FloofEngine()
 	window->setTitle(L"New Title");
 	window->setSize(1024, 768);
 
+	// start graphic
+	graphic = new Graphic(window->GetWindowHandler(), window->GetWindowWidth(), window->GetWindowHeight());
+
 	// Show the window
 	window->show();
 }
 
 FloofEngine::~FloofEngine()
 {
+	delete graphic;
 	delete window;
+}
+
+void FloofEngine::ClearScreen(float r, float g, float b, float a)
+{
+	// Define the clear color as green (RGBA format)
+	const float clearColor[4] = {r, g, b, a}; // R, G, B, A
+
+	// Clear the render target view (back buffer) with the green color
+	graphic->GetDeviceContext()->ClearRenderTargetView(graphic->GetRenderTargetView(), clearColor);
+
+	// Present the back buffer to the screen
+	graphic->GetSwapChain()->Present(0, 0);
 }

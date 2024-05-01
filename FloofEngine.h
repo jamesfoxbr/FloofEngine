@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include "Window.h"
+#include "Graphic.h"
 
 using std::string;
 
@@ -27,9 +28,12 @@ private:
 
 public:
 	Window* window;
+	Graphic* graphic;
 
 	FloofEngine();
 	~FloofEngine();
+
+	void ClearScreen(float r, float g, float b, float a);
 };
 
 #endif // !H_ENGINE_H

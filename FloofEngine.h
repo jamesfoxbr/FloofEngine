@@ -2,6 +2,8 @@
 #define H_ENGINE_H
 
 #include <string>
+#include <iostream>
+#include "Window.h"
 
 using std::string;
 
@@ -9,6 +11,8 @@ class FloofEngine
 {
 protected:
 	string mGameTitle;
+	int mWindowWidth;
+	int mWindowHeight;
 	bool mGameRunning = true;
 
 public:
@@ -23,7 +27,10 @@ private:
 	virtual bool _close();
 
 public:
+	Window* window;
+
 	FloofEngine();
+	~FloofEngine();
 };
 
 #endif // !H_ENGINE_H

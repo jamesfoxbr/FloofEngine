@@ -6,7 +6,8 @@ class Game : public FloofEngine
 public:
 	Game()
 	{
-		mGameTitle = "test";
+		window->setTitle(L"hard");
+		window->setSize(800, 400);
 	}
 
 	bool _init() override
@@ -30,7 +31,7 @@ public:
 	bool _draw() override
 	{
 		// called one time per frame to to draw the screen
-		std::cout << mGameTitle << std::endl;
+
 		return true;
 	}
 

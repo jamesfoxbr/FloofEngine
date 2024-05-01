@@ -6,25 +6,15 @@ bool FloofEngine::start()
 	_init();
 
 	// Game Loop
-	while (mGameRunning)
-	{
+	MSG msg = {};
+	while (true) {
 		// Message loop
-		MSG msg = {};
-		while (true) {
-			while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
-				TranslateMessage(&msg);
-				DispatchMessage(&msg);
+		while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
 
-				switch (msg.message)
-				{
-				case WM_KEYDOWN:
-				{
-					Key[window->mWParam] = true;
-				}
-				case WM_KEYUP:
-				{
-					Key[window->mWParam] = false;
-				}
+			switch (msg.message)
+			{
 				case WM_QUIT:
 				{
 					// game finished
@@ -32,10 +22,6 @@ bool FloofEngine::start()
 
 					return static_cast<int>(msg.wParam);
 				}
-				default:
-					break;
-				}
-
 			}
 		}
 
@@ -43,8 +29,6 @@ bool FloofEngine::start()
 		_update();
 		_draw();
 	}
-
-	
 
 	return false;
 }

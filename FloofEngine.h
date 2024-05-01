@@ -16,13 +16,9 @@ protected:
 	bool mGameRunning = true;
 
 public:
-
-
 	bool start();                             // start the game engine when a game is read
 
 private:
-	bool Key[256] = {0};                      // mouse and keyboard button/key states
-
 	virtual bool _init();                     // Called first time when a game is loaded
 	virtual bool _processInput();             // process player inputs like keyboard and mouse presses 
 	virtual bool _update();                   // updates the game logic every  frame

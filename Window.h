@@ -3,11 +3,10 @@
 
 #include <windows.h>
 #include <string>
+#include <iostream>
 
 class Window {
 public:
-    WPARAM mWParam;
-
     Window(int width, int height, const std::wstring& title);
     ~Window();
 
@@ -15,6 +14,8 @@ public:
     void setSize(int width, int height);
     void show();
     void close();
+
+    bool KeyDown(int vkcode);
 
 private:
     HWND m_hWnd;

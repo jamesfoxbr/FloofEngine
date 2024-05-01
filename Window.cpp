@@ -1,10 +1,11 @@
 #include "Window.h"
 
+bool Key[256] = {0};                      // mouse and keyboard button/key states
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 Window::Window(int width, int height, const std::wstring& title)
     : m_hWnd(nullptr), m_width(width), m_height(height), m_title(title) {
-    
     
     // Register window class
     WNDCLASS wc = {};
@@ -53,8 +54,25 @@ void Window::close() {
     }
 }
 
-LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
+bool Window::KeyDown(int vkcode)
+{
+    return Key[vkcode];
+}
+
+LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {    
     switch (msg) {
+    case WM_KEYDOWN:
+    {
+        std::cout << "key pressed\n";
+        Key[wParam] = true;
+        break;
+    }
+    case WM_KEYUP:
+    {
+        std::cout << "key released\n";
+        Key[wParam] = false;
+        break;
+    }
     case WM_CLOSE:
         DestroyWindow(hWnd);
         break;
@@ -66,3 +84,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     }
     return 0;
 }
+
+
+

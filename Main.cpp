@@ -35,6 +35,8 @@ public:
 		{
 			std::cout << "UP\n";
 		}
+		window->ClearScreen(0.0f, 1.0f, 0.0f, 1.0f);
+		
 		return true;
 	}
 

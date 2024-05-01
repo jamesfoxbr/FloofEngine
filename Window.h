@@ -18,6 +18,7 @@ public:
     void close();
 
     bool KeyDown(int vkcode);
+    void ClearScreen(float r, float g, float b, float a);
 
     // directx
     ID3D11Device* getDevice() const { return m_device; }

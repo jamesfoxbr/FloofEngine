@@ -109,6 +109,18 @@ bool Window::KeyDown(int vkcode)
     return Key[vkcode];
 }
 
+void Window::ClearScreen(float r, float g, float b, float a)
+{
+    // Define the clear color as green (RGBA format)
+    const float clearColor[4] = {r, g, b, a}; // R, G, B, A
+
+    // Clear the render target view (back buffer) with the green color
+    m_deviceContext->ClearRenderTargetView(m_renderTargetView, clearColor);
+
+    // Present the back buffer to the screen
+    m_swapChain->Present(0, 0);
+}
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {    
     switch (msg) {
     case WM_KEYDOWN:

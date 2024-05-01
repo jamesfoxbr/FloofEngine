@@ -8,13 +8,43 @@ bool FloofEngine::start()
 	// Game Loop
 	while (mGameRunning)
 	{
+		// Message loop
+		MSG msg = {};
+		while (true) {
+			while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
+				TranslateMessage(&msg);
+				DispatchMessage(&msg);
+
+				switch (msg.message)
+				{
+				case WM_KEYDOWN:
+				{
+					Key[window->mWParam] = true;
+				}
+				case WM_KEYUP:
+				{
+					Key[window->mWParam] = false;
+				}
+				case WM_QUIT:
+				{
+					// game finished
+					_close();
+
+					return static_cast<int>(msg.wParam);
+				}
+				default:
+					break;
+				}
+
+			}
+		}
+
 		_processInput();
 		_update();
 		_draw();
 	}
 
-	// game finished
-	_close();
+	
 
 	return false;
 }

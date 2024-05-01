@@ -6,6 +6,8 @@
 
 class Window {
 public:
+    WPARAM mWParam;
+
     Window(int width, int height, const std::wstring& title);
     ~Window();
 

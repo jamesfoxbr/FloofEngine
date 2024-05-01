@@ -10,21 +10,24 @@ using std::string;
 class FloofEngine
 {
 protected:
-	string mGameTitle;
-	int mWindowWidth;
-	int mWindowHeight;
+	string mGameTitle;                        // game and window title are stored here
+	int mWindowWidth;                         // window width
+	int mWindowHeight;                        // window height
 	bool mGameRunning = true;
 
 public:
-	bool start();
+
+
+	bool start();                             // start the game engine when a game is read
 
 private:
+	bool Key[256] = {0};                      // mouse and keyboard button/key states
 
-	virtual bool _init();
-	virtual bool _processInput();
-	virtual bool _update();
-	virtual bool _draw();
-	virtual bool _close();
+	virtual bool _init();                     // Called first time when a game is loaded
+	virtual bool _processInput();             // process player inputs like keyboard and mouse presses 
+	virtual bool _update();                   // updates the game logic every  frame
+	virtual bool _draw();                     // used to put stuff to draw on screen
+	virtual bool _close();                    // called when the game is closed to delete stuff you dynamic loaded.
 
 public:
 	Window* window;

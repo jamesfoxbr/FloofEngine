@@ -4,6 +4,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 Window::Window(int width, int height, const std::wstring& title)
     : m_hWnd(nullptr), m_width(width), m_height(height), m_title(title) {
+    
+    
     // Register window class
     WNDCLASS wc = {};
     wc.lpfnWndProc = WndProc;

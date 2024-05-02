@@ -1,5 +1,6 @@
 /******************************************************************************************
-*	FloofEngine DirectX Framework Version x.x.x                                           *
+* FloofEngine DirectX Framework Version 0.1.1                                             *
+* Author: Jamesfoxbr                                                                      *
 *                                                                                         *
 ******************************************************************************************/
 
@@ -11,14 +12,18 @@
 ******************************************************************************************/
 #include <string>
 #include <iostream>
+#include <windows.h>
 #include <d3d11.h>
 #include <dxgi.h>
 
 using std::string;
 
 
+
 /******************************************************************************************
+*                                                                                         *
 *	Graphic                                                                               *
+*                                                                                         *
 ******************************************************************************************/
 
 class Graphic
@@ -105,12 +110,11 @@ Graphic::~Graphic()
 
 
 /******************************************************************************************
+*                                                                                         *
 *	Window                                                                                *
+*                                                                                         *
 ******************************************************************************************/
 
-#include <windows.h>
-#include <string>
-#include <iostream>
 
 class Window {
 public:
@@ -222,45 +226,51 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 
 
 
+
+
 /******************************************************************************************
+*                                                                                         *
 *	Engine                                                                                *
+*                                                                                         *
 ******************************************************************************************/
 
 class FloofEngine
 {
 protected:
-	string mGameTitle;                        // game and window title are stored here
-	int mWindowWidth = NULL;                         // window width
-	int mWindowHeight = NULL;                        // window height
-	bool mGameRunning = true;                 // variable to tell if the game is running
-
-public:
-	bool start();                             // start the game engine when a game is read
-
-private:
-	virtual bool _init();                     // Called first time when a game is loaded
-	virtual bool _processInput();             // process player inputs like keyboard and mouse presses 
-	virtual bool _update();                   // updates the game logic every  frame
-	virtual bool _draw();                     // used to put stuff to draw on screen
-	virtual bool _close();                    // called when the game is closed to delete stuff you dynamic loaded.
-
-public:
-	Window* window;                           // The game window
-	Graphic* graphic;                         // the graphics (Direct11 at moment)
+	string mGameTitle;                                        // game and window title are stored here
+	int mWindowWidth = NULL;                                  // window width
+	int mWindowHeight = NULL;                                 // window height
+	bool mGameRunning = true;                                 // variable to tell if the game is running
+                                                             
+public:                                                      
+	bool start();                                             // start the game engine when a game is read
+                                                             
+private:                                                     
+	virtual bool _init();                                     // Called first time when a game is loaded
+	virtual bool _processInput();                             // process player inputs like keyboard and mouse presses 
+	virtual bool _update();                                   // updates the game logic every  frame
+	virtual bool _draw();                                     // used to put stuff to draw on screen
+	virtual bool _close();                                    // called when the game is closed to delete stuff you dynamic loaded.
+                                                             
+public:                                                      
+	Window* window;                                           // The game window
+	Graphic* graphic;                                         // the graphics (Direct11 at moment)
 
 	FloofEngine();
 	~FloofEngine();
 
-	void ClearScreen(float r, float g, float b, float a);
-	bool KeyPressed(int key) { return window->KeyDown(key); }
+	void ClearScreen(float r, float g, float b, float a);      // Clear the screen to a choose color
+	bool KeyPressed(int key) { return window->KeyDown(key); }  // Detect the key pressed
 };
 
 bool FloofEngine::start()
 {
     // Called first time when a game is loaded
     _init();
-
-    // Game Loop
+    
+    /////////////////////////////////////////////////////////////////////////////////////
+    //                                  GAME LOOP                                      //
+    /////////////////////////////////////////////////////////////////////////////////////
     MSG msg = {};
     while (true) {
         // Message loop
@@ -272,7 +282,7 @@ bool FloofEngine::start()
             {
             case WM_QUIT:
             {
-                // game finished
+                // game closed
                 _close();
 
                 return static_cast<int>(msg.wParam);
@@ -283,8 +293,6 @@ bool FloofEngine::start()
         _processInput();
         _update();
         _draw();
-
-
     }
 
     return false;

@@ -9,7 +9,7 @@ public:
 	Game()
 	{
 		window->setTitle(L"hard");
-		window->setSize(800, 400);
+		//window->setSize(800, 400);
 	}
 
 	bool _init() override
@@ -32,17 +32,10 @@ public:
 
 	bool _draw() override
 	{
-		// called one time per frame to to draw the screen
-		if (KeyPressed(VK_UP))
-		{
-			red += 0.0001f;
-		}
-		if (KeyPressed(VK_DOWN))
-		{
-			red -= 0.0001f;
-		}
-
-		ClearScreen(0.0f, 0.0f, 0.0f, 1.0f);
+		//ClearScreen(0.0f, 0.0f, 0.0f, 1.0f);
+		graphic->ClearScreen(50, 100, 50);
+		graphic->DrawPixel(50, 50, 255, 255, 255); // Black pixel at (50, 50)
+		graphic->DrawPixel(10, 10, 255, 255, 255); // White pixel at (10, 10)
 		return true;
 	}
 
@@ -58,7 +51,7 @@ public:
 *	MAIN FUNCTION                                                                         *
 ******************************************************************************************/
 
-int main()
+int main(int argc, char* argv[])
 {
 	Game game;
 	game.start();

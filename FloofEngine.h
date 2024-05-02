@@ -38,10 +38,10 @@ public:
 
 private:
     // directx
-    ID3D11Device* m_device;
-    ID3D11DeviceContext* m_deviceContext;
-    IDXGISwapChain* m_swapChain;
-    ID3D11RenderTargetView* m_renderTargetView;
+    ID3D11Device* m_device = nullptr;
+    ID3D11DeviceContext* m_deviceContext = nullptr;
+    IDXGISwapChain* m_swapChain = nullptr;
+    ID3D11RenderTargetView* m_renderTargetView = nullptr;
 
 };
 
@@ -230,8 +230,8 @@ class FloofEngine
 {
 protected:
 	string mGameTitle;                        // game and window title are stored here
-	int mWindowWidth;                         // window width
-	int mWindowHeight;                        // window height
+	int mWindowWidth = NULL;                         // window width
+	int mWindowHeight = NULL;                        // window height
 	bool mGameRunning = true;                 // variable to tell if the game is running
 
 public:

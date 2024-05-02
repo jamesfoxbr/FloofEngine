@@ -27,27 +27,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="FloofEngine.cpp">
-      <Filter>FloofEngine\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Game\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Window.cpp">
-      <Filter>FloofEngine\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphic.cpp">
-      <Filter>FloofEngine\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FloofEngine.h">
-      <Filter>FloofEngine\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Window.h">
-      <Filter>FloofEngine\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphic.h">
       <Filter>FloofEngine\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

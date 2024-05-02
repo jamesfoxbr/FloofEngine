@@ -4,6 +4,8 @@
 class Game : public FloofEngine
 {
 public:
+	float red = 0.0f;
+
 	Game()
 	{
 		window->setTitle(L"hard");
@@ -33,10 +35,14 @@ public:
 		// called one time per frame to to draw the screen
 		if (KeyPressed(VK_UP))
 		{
-			std::cout << "UP\n";
+			red += 0.0001f;
 		}
-		ClearScreen(0.0f, 1.0f, 0.0f, 1.0f);
-		
+		if (KeyPressed(VK_DOWN))
+		{
+			red -= 0.0001f;
+		}
+
+		ClearScreen(0.0f, 0.0f, 0.0f, 1.0f);
 		return true;
 	}
 

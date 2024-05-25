@@ -35,8 +35,5 @@
     <ClInclude Include="FloofEngine.h">
       <Filter>FloofEngine\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="globalVariables.h">
-      <Filter>Game\Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

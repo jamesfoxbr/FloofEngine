@@ -14,12 +14,12 @@ public:
     ~Graphic();
 
     SDL_Renderer* GetRenderer() const { return m_renderer; }
-
+    
+    void ClearScreen(float r, float g, float b, float a);
     void ClearScreen();
-    void ClearScreen(int r, int g, int b);    
     void DrawPixel(int x, int y, Uint8 r, Uint8 g, Uint8 b);
+    void drawRect(int x, int y, int width, int height, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 
-private:
     SDL_Renderer* m_renderer = nullptr;
 };
 
@@ -40,26 +40,43 @@ Graphic::~Graphic()
 
 void Graphic::ClearScreen()
 {
-    ClearScreen(0, 0, 0);
+    ClearScreen(0, 0, 0, 255);
 }
 
-void Graphic::ClearScreen(int r, int g, int b)
+void Graphic::ClearScreen(float r, float g, float b, float a)
 {
-    SDL_SetRenderDrawColor(m_renderer, r, g, b, SDL_ALPHA_OPAQUE); // Set the color to black
-    SDL_RenderClear(m_renderer); // Clear the renderer with the black color
+    SDL_SetRenderDrawColor(m_renderer, static_cast<Uint8>(r * 255), static_cast<Uint8>(g * 255), static_cast<Uint8>(b * 255), static_cast<Uint8>(a * 255));
+    SDL_RenderClear(m_renderer);
 }
 
 void Graphic::DrawPixel(int x, int y, Uint8 r, Uint8 g, Uint8 b)
 {
     SDL_SetRenderDrawColor(m_renderer, r, g, b, SDL_ALPHA_OPAQUE);
     SDL_RenderDrawPoint(m_renderer, x, y);
-    SDL_RenderPresent(m_renderer); // Render the changes immediately
+    //SDL_RenderPresent(m_renderer); // Render the changes immediately
+}
+
+inline void Graphic::drawRect(int x, int y, int width, int height, Uint8 r = 255, Uint8 g = 255, Uint8 b = 255, Uint8 a = 255)
+{
+    SDL_Rect rect;
+    rect.x = x;
+    rect.y = y;
+    rect.w = width;
+    rect.h = height;
+
+    SDL_SetRenderDrawColor(m_renderer, r, g, b, a);
+    SDL_RenderDrawRect(m_renderer, &rect);
+    SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
+    SDL_RenderPresent(m_renderer);
+
 }
 
 
-
-
-
+/////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                     //
+//                                WINDOW CLASS                                         //
+//                                                                                     //
+/////////////////////////////////////////////////////////////////////////////////////////
 
 class Window {
 public:
@@ -133,16 +150,19 @@ bool Window::KeyDown(SDL_Scancode scancode)
     return state[scancode];
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                     //
+//                              FLOOFFY ENGINE CLASS                                   //
+//                                                                                     //
+/////////////////////////////////////////////////////////////////////////////////////////
+
 class FloofEngine
 {
 protected:
     string mGameTitle;
-    int mWindowWidth = 0;
-    int mWindowHeight = 0;
-    bool mGameRunning = true;
-
-public:
-    bool start();
+    int    mWindowWidth = 0;
+    int    mWindowHeight = 0;
+    bool   mGameRunning = true;
 
 private:
     virtual bool _init();
@@ -158,8 +178,11 @@ public:
     FloofEngine();
     ~FloofEngine();
 
-    void ClearScreen(float r, float g, float b, float a);
-    bool KeyPressed(SDL_Scancode scancode) { return window->KeyDown(scancode); }
+    bool start();
+
+    bool KeyPressed[256];
+
+    int rectx = 100;
 };
 
 bool FloofEngine::start()
@@ -171,14 +194,63 @@ bool FloofEngine::start()
         while (SDL_PollEvent(&event)) {
             switch (event.type) {
             case SDL_QUIT:
+                // Handle quit event
                 _close();
                 return false;
+            case SDL_KEYDOWN:
+                // Handle key press event
+                switch (event.key.keysym.sym) {
+                case SDLK_UP:
+                    // Handle UP arrow key press
+                    // Example action: Move character up
+                    break;
+                case SDLK_DOWN:
+                    // Handle DOWN arrow key press
+                    // Example action: Move character down
+                    break;
+                case SDLK_LEFT:
+                    // Handle LEFT arrow key press
+                    // Example action: Move character left
+                    break;
+                case SDLK_RIGHT:
+                    // Handle RIGHT arrow key press
+                    // Example action: Move character right
+                    break;
+                    // You can handle other keys similarly
+                }
+                break;
+            case SDL_KEYUP:
+                // Handle key release event
+                switch (event.key.keysym.sym) {
+                case SDLK_UP:
+                    // Handle UP arrow key release
+                    // Example action: Stop moving character up
+                    break;
+                case SDLK_DOWN:
+                    // Handle DOWN arrow key release
+                    // Example action: Stop moving character down
+                    break;
+                case SDLK_LEFT:
+                    // Handle LEFT arrow key release
+                    // Example action: Stop moving character left
+                    break;
+                case SDLK_RIGHT:
+                    // Handle RIGHT arrow key release
+                    // Example action: Stop moving character right
+                    break;
+                    // You can handle other keys similarly
+                }
+                break;
             }
-        }
 
+        }
+        if (KeyPressed[event.key.keysym.sym] == true)
+            rectx += 5;
         _processInput();
         _update();
+        SDL_RenderClear(graphic->m_renderer);
         _draw();
+        SDL_RenderPresent(graphic->m_renderer);
     }
 
     return false;
@@ -209,7 +281,6 @@ bool FloofEngine::_update()
 
 bool FloofEngine::_draw()
 {
-    ClearScreen(0, 0, 0, 1);
     return true;
 }
 
@@ -236,11 +307,5 @@ FloofEngine::~FloofEngine()
 {
 }
 
-void FloofEngine::ClearScreen(float r, float g, float b, float a)
-{
-    SDL_SetRenderDrawColor(graphic->GetRenderer(), static_cast<Uint8>(r * 255), static_cast<Uint8>(g * 255), static_cast<Uint8>(b * 255), static_cast<Uint8>(a * 255));
-    SDL_RenderClear(graphic->GetRenderer());
-    SDL_RenderPresent(graphic->GetRenderer());
-}
 
 #endif // !H_ENGINE_H

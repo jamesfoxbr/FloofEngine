@@ -4,8 +4,6 @@
 class Game : public FloofEngine
 {
 public:
-	float red = 0.0f;
-
 	Game()
 	{
 		window->setTitle(L"hard");
@@ -14,10 +12,7 @@ public:
 
 	bool _init() override
 	{
-		// called when a new game starts
-
-		
-
+		// called when a new game starts		
 		return true;
 	}
 
@@ -35,10 +30,11 @@ public:
 
 	bool _draw() override
 	{
-		//ClearScreen(0.0f, 0.0f, 0.0f, 1.0f);
-		graphic->ClearScreen(50, 100, 50);
 		graphic->DrawPixel(50, 50, 255, 255, 255); // Black pixel at (50, 50)
 		graphic->DrawPixel(10, 10, 255, 255, 255); // White pixel at (10, 10)
+
+		graphic->drawRect(rectx, 100, 100, 100, 255, 255, 255);
+
 		return true;
 	}
 
